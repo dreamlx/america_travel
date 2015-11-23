@@ -33,6 +33,16 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     redirect_to users_url
   end
+
+  def weixin
+    uri = URI("https://api.weixin.qq.com/sns/userinfo?access_token=#{params[:code]}&openid=#{params[:openid]}&lang=zh_CN")
+    res = Net::HTTP.get_response(uri)
+    json =  JSON.parse(res.body.gsub(/[\u0000-\u001f]+/, ''))
+    user = User.create(
+      openid: json["openid"],
+      name: json["nickname"])
+    redirect_to root_url
+  end
   
   private
    def user_params

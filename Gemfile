@@ -13,9 +13,13 @@ gem 'bcrypt'
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'rails-i18n'
+gem 'rack-cors'
+gem 'rumoji'
 
 group :development, :test do
   gem 'byebug'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -26,3 +30,6 @@ group :development do
   gem 'capistrano-passenger', '0.0.2'
 end
 
+group :test do
+  gem 'faker'
+end
