@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.name = Rumoji.encode(params[:user][:name])
     if @user.save
       redirect_to users_url
     else
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @user.name = Rumoji.encode(params[:user][:name])
     if @user.update(user_params)
       redirect_to users_url
     else
