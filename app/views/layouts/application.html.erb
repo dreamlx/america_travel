@@ -8,7 +8,17 @@
 </head>
 <body>
 
-<%= yield %>
+  <%= render 'layouts/header' %>
+  <div class=container>
+    <% if notice || alert %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+    <%= yield %>
+    </div>
 
 </body>
 </html>
