@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :logged_in_admin, only: [:weixin]
   def index
     @users = User.all
   end

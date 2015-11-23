@@ -15,6 +15,9 @@ gem 'simple_form'
 gem 'rails-i18n'
 gem 'rack-cors'
 gem 'rumoji'
+gem 'kaminari'
+gem 'kaminari-i18n'
+gem 'ransack'
 
 group :development, :test do
   gem 'byebug'
