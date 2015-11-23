@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     json =  JSON.parse(res.body.gsub(/[\u0000-\u001f]+/, ''))
     user = User.create(
       openid: json["openid"],
-      name: Rumoji.encode(json["nickname"])
+      name: Rumoji.encode(json["nickname"]))
     redirect_to root_url
   end
   
