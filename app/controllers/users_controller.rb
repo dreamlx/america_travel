@@ -38,12 +38,15 @@ class UsersController < ApplicationController
   end
 
   def weixin
-    uri = URI("https://api.weixin.qq.com/sns/userinfo?access_token=#{params[:code]}&openid=#{params[:openid]}&lang=zh_CN")
+    uri = URI("https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{ENV["WECHAT_APP_ID"]}&secret==#{ENV["WECHAT_APP_SECRET"]}&code=#{params[:code]}&grant_type=authorization_code")
     res = Net::HTTP.get_response(uri)
     json =  JSON.parse(res.body.gsub(/[\u0000-\u001f]+/, ''))
+    info_uri = URI("https://api.weixin.qq.com/sns/userinfo?access_token=#{json["access_token"]}&openid=#{json["openid"]}&lang=zh_CN")
+    info_res = Net::HTTP.get_response(info_uri)
+    info_json =  JSON.parse(info_res.body.gsub(/[\u0000-\u001f]+/, ''))
     user = User.create(
-      openid: json["openid"],
-      name: Rumoji.encode(json["nickname"]))
+      openid: info_json["openid"],
+      name: Rumoji.encode(info_json["nickname"]))
     redirect_to root_url
   end
   

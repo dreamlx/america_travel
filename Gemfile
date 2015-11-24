@@ -18,6 +18,7 @@ gem 'rumoji'
 gem 'kaminari'
 gem 'kaminari-i18n'
 gem 'ransack'
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug'
