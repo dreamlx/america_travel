@@ -44,16 +44,14 @@ class UsersController < ApplicationController
     info_uri = URI("https://api.weixin.qq.com/sns/userinfo?access_token=#{json["access_token"]}&openid=#{json["openid"]}&lang=zh_CN")
     info_res = Net::HTTP.get_response(info_uri)
     info_json =  JSON.parse(info_res.body.gsub(/[\u0000-\u001f]+/, ''))
-    state = 0
     user = User.find_by(openid: info_json["openid"])
     if user
-      state = 1
     else
       user = User.create(
         openid: info_json["openid"],
         name: Rumoji.encode(info_json["nickname"]))
     end
-    redirect_to "/activity.html?openid=#{user.openid}&state=#{state}"
+    redirect_to "/activity.html?openid=#{user.openid}&state=#{user.state}"
   end
   
   private

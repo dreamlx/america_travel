@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
     
     return render json: {message: "谢谢参与", code: nil} if user.nil? # no user found
     
-    user.update(cell: params[:record][:cell])
+    user.update(cell: params[:record][:cell], state: 1)
     prize_city = Prize.find_by(city: params[:record][:city])
     
     return render json: {message: "谢谢参与", code: nil} if prize_city.nil? # can not find city
