@@ -91,6 +91,7 @@ body>div{
 	top: 50%;
 	margin-top: -87px;
 	font-size: 28px;
+	text-indent: -1em;
 	text-align: center;
 	color: 666;
 	line-height: 50px;
