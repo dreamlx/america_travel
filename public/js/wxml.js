@@ -752,7 +752,9 @@ $(function(){
 	if(window.geturlpara("state")!=0){
 		$("#form").addClass("hide");$("#ed").removeClass("hide");
 	}
-
+	$("#page_apply,#page_result,#page_award")
+	.width($(window).width())
+	.height($(window).height());
 });
 
 
