@@ -132,25 +132,7 @@ var inputList=[
 	 ]},
 	{province:"上海市",
 	 city:[
-	 "黄浦区",
-	 "卢湾区",
-	 "徐汇区", 
-	 "长宁区", 
-	 "静安区", 
-	 "普陀区", 
-	 "闸北区", 
-	 "虹口区", 
-	 "杨浦区", 
-	 "闵行区", 
-	 "宝山区",
-	 "嘉定区", 
-	 "浦东新区", 
-	 "金山区", 
-	 "松江区", 
-	 "青浦区", 
-	 "南汇区", 
-	 "奉贤区", 
-	 "崇明县"
+	 "上海"
 	 ]}, 
 	{province:"江苏省",
 	 city:[
@@ -595,7 +577,8 @@ var inputList=[
 		var ctx;
 		var w = width, h = height;             
 		var offsetX = canvas.offsetLeft, offsetY = canvas.offsetTop;             
-		var mousedown = false;               
+		var mousedown = false;
+		var distance = 0;               
 		function layer(ctx){                 
 			ctx.fillStyle = '#ccc';                 
 			ctx.fillRect(0, 0, w, h);             
@@ -616,18 +599,20 @@ var inputList=[
 				}
 				var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0,                         
 				y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;                     
-				console.log(x,y);
 				with(ctx){                    
 					beginPath()                     
 					arc(x, y, 15, 0, Math.PI * 2);                         
 					fill();                     
 				}                
-			}             
+			}
+			distance+=1;
+			if(distance>100){
+				window.canvasinit.showbtn();
+			}           
 		}               
 		canvas.width=w;             
 		canvas.height=h; 
 		
-		//canvas.style.backgroundImage='url('+img.src+')';              
 		ctx=canvas.getContext('2d');         
 		ctx.fillStyle='#b9b9b9';             
 		ctx.fillRect(0, 0, w, h);
@@ -642,7 +627,23 @@ var inputList=[
 		canvas.addEventListener('mousemove', eventMove);       
 		(document.body.style);
 	}
-	window.canvasinit = bodys;
+	function showbtn(){
+		if(this.hascode){
+			$("#linkbtn").removeClass("hide");
+			setTimeout(function(){
+				$("#linkbtn").addClass("op");
+			},10);
+			$("#linkbtn").bind("click",function(){
+				$("#page_result").addClass("hide");
+				$("#page_award").removeClass("hide");
+			});
+		}
+	}
+	window.canvasinit = {
+		init:bodys,
+		showbtn:showbtn,
+		hascode:false
+	};
 }
 )();
 
@@ -696,15 +697,19 @@ var inputList=[
 	function bind(){
 		$(".gamble").bind("click",function(){submit();});
 	}
+	function toPageTwo(){
+		$("#page_apply").addClass("hide");
+		$("#page_result").removeClass("hide");
+	}
 	function submit(){
 		if(!window.cellcheck.check()||!window.cellcheck.cellrequire()){
 			return;
 		}
 		var param = {
 			record:{
-				openid:window.geturlpara("appid"),
+				openid:window.geturlpara("openid"),
 				cell: $("#cell").val(),
-				city: $("#city_select").text(),
+				city: $("#city_select option:checked").text()
 			}
 		}
 		$.ajax({
@@ -713,21 +718,41 @@ var inputList=[
 			dataType:"json",
 			type:"post",
 			success:function(data){
-				debugger;
+				toPageTwo();
+				window.award.render(data);
 			},error:function(e){
-				debugger;
+				alert("由于网络原因抽奖未成功，请再次尝试");
 			}
-
 		});
 	}
-	window.submitbind = bind;
+	window.submit = {
+		submitbind:bind
+	};
+})();
+(function (){
+	function render(data){
+		html= "<div class='stampcontent'>"+data.message+"</div>";
+		$("#stampblock").append(html);
+		$("#code").html(data.code);
+		if(data.code){
+			window.canvasinit.hascode = true;
+		}
+		window.canvasinit.init();
+	}
+	window.award={
+		render:render
+	}
 })();
 
 $(function(){
 	window.cellcheck.initial();
 	window.inputSelect.initial();
-	window.submitbind();
-	window.canvasinit();
+	window.submit.submitbind();
+
+	if(window.geturlpara("state")!=0){
+		$("#form").addClass("hide");$("#ed").removeClass("hide");
+	}
+
 });
 
 

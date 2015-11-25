@@ -81,6 +81,21 @@ form{
 	background: url(../img/b1.png) no-repeat center 93%;
 	background-size: 80% auto;
 }
+.ed{
+	position: fixed;
+	width: 70%;
+	height: 174px;
+	left:15%;
+	top: 50%;
+	margin-top: -87px;
+	font-size: 28px;
+	text-align: center;
+	color: 666;
+	line-height: 50px;
+	background-color: #fff;
+    border-radius: 5px;
+	z-index: 2;
+}
 .form{
 	position: fixed;
 	width: 70%;
@@ -169,7 +184,7 @@ form{
 	margin-left: -100px;
 	width: 200px;
 	height: 110px;
-	background: url(../img/b2.png) no-repeat center 95%;
+	background: url(../img/b2.png) no-repeat center;
 	background-size: 200px 110px;
 }
 /*--page_result--*/
@@ -199,7 +214,7 @@ form{
 	background-size: 100% auto;
 }
 .result .stamp{
-	margin: 42% auto 0 auto;
+	margin: 38% auto 0 auto;
 	width: 226px;
 	height: 114px;
 	padding: 4px;
@@ -220,20 +235,54 @@ form{
 .result .stamp .stampblock canvas{
 	width: 218px;
 	height: 106px;
+	z-index: 2;
+}
+.result .stamp .stampblock .stampcontent{
+	width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: #DE5A4D;
+    font-weight: bold;
+    padding-top: 10px;
+    line-height: 40px;
+}
+.linkbtn{
+	position: absolute;
+    z-index: 3;
+    top: 51%;
+    left: 50%;
+    opacity: 0;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #E45B19;
+    border-radius: 3px;
+    text-align: center;
+    color: #fff;
+    margin-left: -75px;
+    transition:all .3s ease;
+    -webkit-transition:all .3s ease;
+    -moz-transition:all .3s ease;
+    -o-transition:all .3s ease;
+}
+.linkbtn.op{
+	opacity: 1;
 }
 .rules{
 	position: absolute;
+	z-index: 2;
 	bottom: 15%;
 	left:15%;
-	width: 70%;
-	height: 120px;
-	background: url(../img/word.png) no-repeat center left;
+	width: 65%;
+	height: 160px;
+	background: url(../img/word.png) no-repeat top left;
 	background-size: auto 120px;
 }
 .rules p{
 	margin-left: 20%;
-	line-height: 24px;
-	font-size: 14px;
+	line-height: 18px;
+	font-size: 12px;
 	color: #35235F;
 }
 /*--page_award--*/
@@ -284,6 +333,13 @@ form{
 	.result .stamp .stampblock canvas{
 		width: 250px;
 		height: 122px;
+	}
+	.rules p{
+		line-height: 24px;
+    	font-size: 14px;
+	}
+	.linkbtn{
+		top: 45%;
 	}
 	.gamble{
 		bottom: 15%;
