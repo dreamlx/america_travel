@@ -23,7 +23,7 @@ class RecordsController < ApplicationController
         user_id: user.id,
         code: rand(100000..999999),
         state: '未领取')
-      return render json: {message: record.prize, code: record.prize}, status: 201
+      return render json: {message: record.prize, code: record.code}, status: 201
     else
       return render json: {message: "谢谢参与", code: nil}
     end
