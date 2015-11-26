@@ -1,6 +1,6 @@
 <tr>
   <td><%= record.user.cell if record.user %></td>
-  <td><%= record.user.name if record.user %></td>
+  <td><%= Rumoji.decode(record.user.name) if record.user %></td>
   <td><%= record.city %></td>
   <td><%= record.prize %></td>
   <td><%= record.code %></td>
